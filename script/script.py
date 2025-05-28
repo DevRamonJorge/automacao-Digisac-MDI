@@ -62,7 +62,7 @@ try:
         print("✅ Login realizado com sucesso!")
     acessarLogin()
 
-    def acessarHistoricoDeChamados():
+    """def acessarHistoricoDeChamados():
         # Acessar menu > Histórico de chamados
         icone_menu = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
         icone_menu.click()
@@ -144,21 +144,36 @@ try:
 
         filtros_chamados()
 
-    acessarHistoricoDeChamados()
+    acessarHistoricoDeChamados()"""
 
-    def acessarEstatisticas_E_Avaliacoes():
+    def acessarEstatisticas_De_Avaliacoes():
         # Acessar menu > Estatísticas e avaliações
-        icone_menu_avaliacoes = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
-        icone_menu_avaliacoes.click()
+        icone_menu = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
+        icone_menu.click()
 
-        estatisticasE_Avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Histórico de chamados']")))
+        estatisticasE_Avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Estatísticas de avaliações']")))
         estatisticasE_Avaliacoes.click()
-        print("📂 Acessou 'Histórico de chamados' com sucesso.")
+        print("📂 Acessou 'Estatísticas de avaliações.")
 
         # Exibir filtros
-        exibir_Filtro = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[data-testid='ticketHistory-button-Show-Filters']")))
+        exibir_Filtro = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@data-testid="stats-Evaluation-button-Show-Filters"]')))
         exibir_Filtro.click()
-    acessarEstatisticas_E_Avaliacoes()
+
+        # Preencher os filtros
+        def filtros_avaliacoes():
+            def clicarBotao_chamados_status():
+                ultimoDepartamento_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'react_select__placeholder') and contains(@class, 'css-smo73u-placeholder')]")))
+                ultimoDepartamento_avaliacoes.click()
+                time.sleep(1)
+                pyautogui.write("Suporte")
+                pyautogui.press("enter")
+
+            # Chamando as Funcões
+            clicarBotao_chamados_status()
+
+        filtros_avaliacoes()
+            
+    acessarEstatisticas_De_Avaliacoes()
 
 except Exception as e:
     print("❌ Algo deu errado.")
