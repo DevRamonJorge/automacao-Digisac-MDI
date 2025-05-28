@@ -46,69 +46,75 @@ navegador.maximize_window()
 wait = WebDriverWait(navegador, 10)
 
 try:
-    # Login
-    email_Element = wait.until(EC.presence_of_element_located((By.ID, 'username')))
-    email_Element.send_keys(email)
 
-    password_Element = wait.until(EC.presence_of_element_located((By.ID, 'password')))
-    password_Element.send_keys(senha)
+    def acessarLogin():
+        # Login
+        email_Element = wait.until(EC.presence_of_element_located((By.ID, 'username')))
+        email_Element.send_keys(email)
 
-    login_Button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-testid='login-button-login']")))
-    login_Button.click()
+        password_Element = wait.until(EC.presence_of_element_located((By.ID, 'password')))
+        password_Element.send_keys(senha)
 
-    wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='Chats']")))
-    print("✅ Login realizado com sucesso!")
+        login_Button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-testid='login-button-login']")))
+        login_Button.click()
 
-    # Acessar menu > Histórico de chamados
-    icone_menu = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
-    icone_menu.click()
+        wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='Chats']")))
+        print("✅ Login realizado com sucesso!")
+    acessarLogin()
 
-    historico = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Histórico de chamados']")))
-    historico.click()
-    print("📂 Acessou 'Histórico de chamados' com sucesso.")
+    def acessarHistoricoDeChamados():
+        # Acessar menu > Histórico de chamados
+        icone_menu = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
+        icone_menu.click()
 
-    # Exibir filtros
-    exibir_Filtro = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[data-testid='ticketHistory-button-Show-Filters']")))
-    exibir_Filtro.click()
+        historico = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Histórico de chamados']")))
+        historico.click()
+        print("📂 Acessou 'Histórico de chamados' com sucesso.")
 
-    # Aplicar filtros
-    def filtros_chamados():
-        def clicarBotao_chamados_status():
-            status_chamados = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'react_select__control')))
-            status_chamados.click()
-            time.sleep(1)
-            pyautogui.write("Fechado")
-            pyautogui.press("enter")
+        # Exibir filtros
+        exibir_Filtro = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[data-testid='ticketHistory-button-Show-Filters']")))
+        exibir_Filtro.click()
 
-        def clicarBotao_chamados_tipoDePeriodo():
-            tipoDePeriodo_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Todos']")))
-            tipoDePeriodo_chamados.click()
-            time.sleep(1)
-            pyautogui.write("Data de fechamento")
-            pyautogui.press("enter")
+        # Aplicar filtros
+        def filtros_chamados():
+            def clicarBotao_chamados_status():
+                status_chamados = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'react_select__control')))
+                status_chamados.click()
+                time.sleep(1)
+                pyautogui.write("Fechado")
+                pyautogui.press("enter")
 
-        def clicarBotao_chamados_Periodo():
-            campos_data = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'input[data-testid="DataTime-input"]')))
+            def clicarBotao_chamados_tipoDePeriodo():
+                tipoDePeriodo_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Todos']")))
+                tipoDePeriodo_chamados.click()
+                time.sleep(1)
+                pyautogui.write("Data de fechamento")
+                pyautogui.press("enter")
+
+            def clicarBotao_chamados_Periodo():
+                campos_data = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'input[data-testid="DataTime-input"]')))
             
-            # "De"
-            campos_data[0].click()
-            campos_data[0].send_keys(Keys.CONTROL, 'a')
-            campos_data[0].send_keys(Keys.BACKSPACE)
-            campos_data[0].send_keys(primeira_data_07)
-            pyautogui.press("enter")
+                # "De"
+                campos_data[0].click()
+                campos_data[0].send_keys(Keys.CONTROL, 'a')
+                campos_data[0].send_keys(Keys.BACKSPACE)
+                campos_data[0].send_keys(primeira_data_07)
+                pyautogui.press("enter")
 
-            # "Até"
-            campos_data[1].click()
-            campos_data[1].send_keys(Keys.CONTROL, 'a')
-            campos_data[1].send_keys(Keys.BACKSPACE)
-            campos_data[1].send_keys(segunda_data_22)
-            pyautogui.press("enter")
+                # "Até"
+                campos_data[1].click()
+                campos_data[1].send_keys(Keys.CONTROL, 'a')
+                campos_data[1].send_keys(Keys.BACKSPACE)
+                campos_data[1].send_keys(segunda_data_22)
+                pyautogui.press("enter")
 
-        clicarBotao_chamados_status()
-        clicarBotao_chamados_tipoDePeriodo()
-        clicarBotao_chamados_Periodo()
+            clicarBotao_chamados_status()
+            clicarBotao_chamados_tipoDePeriodo()
+            clicarBotao_chamados_Periodo()
 
-    filtros_chamados()
+        filtros_chamados()
+        
+    acessarHistoricoDeChamados()
 
 except Exception as e:
     print("❌ Algo deu errado.")
