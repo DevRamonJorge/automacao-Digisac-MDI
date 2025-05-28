@@ -108,12 +108,42 @@ try:
                 campos_data[1].send_keys(segunda_data_22)
                 pyautogui.press("enter")
 
+            def clicarBotao_chamados_departamento():
+                departamentos_chamados = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.react_select__single-value.css-hypuar-singleValue')))
+                departamentos_chamados.click()
+                time.sleep(1)
+                pyautogui.write("Suporte")
+                pyautogui.press("enter")
+
+            def clicarBotao_chamados_conexao():
+                conexao_chamados = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.react_select__placeholder.css-smo73u-placeholder')))
+                conexao_chamados.click()
+                time.sleep(1)
+                pyautogui.write("WhatsApp")
+                pyautogui.press("enter")
+
+            # Chamando as Funcões
             clicarBotao_chamados_status()
             clicarBotao_chamados_tipoDePeriodo()
             clicarBotao_chamados_Periodo()
+            clicarBotao_chamados_departamento()
+            clicarBotao_chamados_conexao()
+
+            #Clicar no botão de aplicar filtro e baixar
+            def aplicar_e_baixar_chamados():
+                # Aplicar os filtros
+                botao_AplicarFiltros_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(), "Aplicar filtros")]')))
+                botao_AplicarFiltros_chamados.click()
+
+                # Baixar, exportar o conteúdo
+                def baixar_chamados():
+                    botao_baixar_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(), "Exportar")]')))
+                    botao_baixar_chamados.click()
+                baixar_chamados()
+            aplicar_e_baixar_chamados()
 
         filtros_chamados()
-        
+
     acessarHistoricoDeChamados()
 
 except Exception as e:
