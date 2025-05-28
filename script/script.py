@@ -161,17 +161,73 @@ try:
 
         # Preencher os filtros
         def filtros_avaliacoes():
-            def clicarBotao_chamados_status():
+
+            def clicarBotao_avaliacoes_status():
                 ultimoDepartamento_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'react_select__placeholder') and contains(@class, 'css-smo73u-placeholder')]")))
                 ultimoDepartamento_avaliacoes.click()
                 time.sleep(1)
                 pyautogui.write("Suporte")
                 pyautogui.press("enter")
 
+            def clicarBotao_avaliacoes_conexao():
+                conexao_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "(//div[contains(@class, 'react_select__placeholder') and text()='Selecione'])[2]")))
+                conexao_avaliacoes.click()
+                time.sleep(1)
+                pyautogui.write("WhatsApp")
+                pyautogui.press("enter")
+
+            def clicarBotao_avaliacoes_periodo():
+                conexao_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='react-select-periodType-input']/ancestor::div[contains(@class, 'react_select__value-container')]//div[contains(@class, 'react_select__single-value')]")))
+                conexao_avaliacoes.click()
+                time.sleep(1)
+                pyautogui.write("Data de fechamento")
+                pyautogui.press("enter")
+
+            def clicarBotao_avaliacoes_deAte():
+                campos_data = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'input[data-testid="DataTime-input"]')))
+            
+                # "De"
+                campos_data[0].click()
+                campos_data[0].send_keys(Keys.CONTROL, 'a')
+                campos_data[0].send_keys(Keys.BACKSPACE)
+                campos_data[0].send_keys(primeira_data_07)
+                pyautogui.press("enter")
+
+                # "Até"
+                campos_data[1].click()
+                campos_data[1].send_keys(Keys.CONTROL, 'a')
+                campos_data[1].send_keys(Keys.BACKSPACE)
+                campos_data[1].send_keys(segunda_data_22)
+                pyautogui.press("enter")
+
+            def clicarBotao_avaliacoes_tipo():
+                tipo_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, '//div[contains(@class, "react_select__placeholder") and contains(@class, "css-1wa3eu0-placeholder") and text()="Selecione"]')))
+                tipo_avaliacoes.click()
+                time.sleep(1)
+                pyautogui.write("NPS")
+                pyautogui.press("enter")
+
             # Chamando as Funcões
-            clicarBotao_chamados_status()
+            clicarBotao_avaliacoes_status()
+            clicarBotao_avaliacoes_conexao()
+            clicarBotao_avaliacoes_periodo()
+            clicarBotao_avaliacoes_deAte()
+            clicarBotao_avaliacoes_tipo()
 
         filtros_avaliacoes()
+
+        #Clicar no botão de aplicar filtro e baixar
+        def aplicar_e_baixar_avaliacoes():
+            # Aplicar os filtros
+            botao_AplicarFiltros_avaliacoes = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[data-testid="stats-Evaluation-Apply-Filters"]')))
+            botao_AplicarFiltros_avaliacoes.click()
+
+            # Baixar, exportar o conteúdo
+            """def baixar_avaliacoes():
+                botao_baixar_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(), "Exportar")]')))
+                botao_baixar_avaliacoes.click()
+            baixar_avaliacoes()"""
+        aplicar_e_baixar_avaliacoes()
             
     acessarEstatisticas_De_Avaliacoes()
 
