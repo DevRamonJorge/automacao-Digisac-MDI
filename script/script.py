@@ -132,7 +132,7 @@ try:
             #Clicar no botão de aplicar filtro e baixar
             def aplicar_e_baixar_chamados():
                 # Aplicar os filtros
-                botao_AplicarFiltros_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(), "Aplicar filtros")]')))
+                botao_AplicarFiltros_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@data-testid="ticketHistory-button-Apply-Filters"]')))
                 botao_AplicarFiltros_chamados.click()
 
                 # Baixar, exportar o conteúdo
@@ -145,6 +145,20 @@ try:
         filtros_chamados()
 
     acessarHistoricoDeChamados()
+
+    def acessarEstatisticas_E_Avaliacoes():
+        # Acessar menu > Estatísticas e avaliações
+        icone_menu_avaliacoes = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
+        icone_menu_avaliacoes.click()
+
+        estatisticasE_Avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Histórico de chamados']")))
+        estatisticasE_Avaliacoes.click()
+        print("📂 Acessou 'Histórico de chamados' com sucesso.")
+
+        # Exibir filtros
+        exibir_Filtro = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[data-testid='ticketHistory-button-Show-Filters']")))
+        exibir_Filtro.click()
+    acessarEstatisticas_E_Avaliacoes()
 
 except Exception as e:
     print("❌ Algo deu errado.")
