@@ -62,7 +62,7 @@ try:
         print("✅ Login realizado com sucesso!")
     acessarLogin()
 
-    def acessarHistoricoDeChamados():
+    """def acessarHistoricoDeChamados():
         # Acessar menu > Histórico de chamados
         icone_menu = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
         icone_menu.click()
@@ -144,7 +144,7 @@ try:
 
         filtros_chamados()
 
-    acessarHistoricoDeChamados()
+    acessarHistoricoDeChamados()"""
 
     def acessarEstatisticas_De_Avaliacoes():
         # Acessar menu > Estatísticas e avaliações
@@ -155,7 +155,7 @@ try:
         estatisticasE_Avaliacoes.click()
         print("📂 Acessou 'Estatísticas de avaliações.")
 
-        """# Exibir filtros
+        # Exibir filtros
         exibir_Filtro = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@data-testid="stats-Evaluation-button-Show-Filters"]')))
         exibir_Filtro.click()
 
@@ -230,7 +230,7 @@ try:
 
         aplicar_e_baixar_avaliacoes()
             
-    acessarEstatisticas_De_Avaliacoes()"""
+    acessarEstatisticas_De_Avaliacoes()
 
 except Exception as e:
     print("❌ Algo deu errado.")
