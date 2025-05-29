@@ -33,7 +33,8 @@ Elas são carregadas usando `load_dotenv()` para manter o código seguro.
 Exemplo de `.env`:
 ```env
 DIGISAC_USER=seu_usuario
-DIGISAC_PASS=sua_senha
+DIGISAC_PASS=sua_senha```
+
 🚀 Como Executar
 ### Instale os pacotes necessários:
 
