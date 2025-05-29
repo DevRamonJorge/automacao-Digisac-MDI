@@ -62,7 +62,7 @@ try:
         print("✅ Login realizado com sucesso!")
     acessarLogin()
 
-    """def acessarHistoricoDeChamados():
+    def acessarHistoricoDeChamados():
         # Acessar menu > Histórico de chamados
         icone_menu = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
         icone_menu.click()
@@ -144,7 +144,7 @@ try:
 
         filtros_chamados()
 
-    acessarHistoricoDeChamados()"""
+    acessarHistoricoDeChamados()
 
     def acessarEstatisticas_De_Avaliacoes():
         # Acessar menu > Estatísticas e avaliações
@@ -223,10 +223,11 @@ try:
             botao_AplicarFiltros_avaliacoes.click()
 
             # Baixar, exportar o conteúdo
-            """def baixar_avaliacoes():
-                botao_baixar_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(), "Exportar")]')))
+            def baixar_avaliacoes():
+                botao_baixar_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@data-testid="stats-Evaluation-button-Export-CSV"]')))
                 botao_baixar_avaliacoes.click()
-            baixar_avaliacoes()"""
+            baixar_avaliacoes()
+
         aplicar_e_baixar_avaliacoes()
             
     acessarEstatisticas_De_Avaliacoes()
