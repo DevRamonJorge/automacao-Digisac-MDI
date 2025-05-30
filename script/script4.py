@@ -70,8 +70,10 @@ try:
         documentos_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@href, '/sites/Analisedechamados/Documentos Compartilhados/Forms/AllItems.aspx')]")))
         documentos_chamados.click()
 
-        base_dados_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[@role='button' and text()='Base_de_dados_Chamados']")))
+        base_dados_botao = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "span[data-id='heroField'].heroTextWithHeroCommandsWrapped2_ae622aee")))
         base_dados_botao.click()
+
+        time.sleep(2)
 
         # Clique no botão "Carregar"
         carregar_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(@class, 'text_24bde817') and contains(text(), 'Carregar')]")))
@@ -86,9 +88,9 @@ try:
         time.sleep(2)
 
         # Aguarda o input aparecer e envia o arquivo
-        input_upload = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='file']")))
-        input_upload.send_keys(r"C:\Users\SeuUsuario\Downloads\DB_NPS_29_05_2025.csv")
-        time.sleep(3)
+        #input_upload = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='file']")))
+        #input_upload.send_keys(r"C:\Users\RamonCorrea-MDITecno\Downloads\DB_NPS_29_05_2025.csv")
+        #time.sleep(3)
     inserindo_documentos()
 
 except Exception as e:
