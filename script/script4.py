@@ -64,14 +64,11 @@ try:
     acessarSharepoint()
 
     def inserindo_documentos():
-        baseDe_dados_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='https://mditicombr.sharepoint.com/sites/Analisedechamados']")))
-        baseDe_dados_chamados.click()
+        # Abre direto a biblioteca Documentos Compartilhados no SharePoint
+        navegador.get("https://mditicombr.sharepoint.com/sites/Analisedechamados/Documentos%20Compartilhados/Forms/AllItems.aspx?id=%2Fsites%2FAnalisedechamados%2FDocumentos%20Compartilhados%2FBase%5Fde%5Fdados%5FChamados&viewid=bf4b0531%2D1d00%2D43a4%2Dbf1c%2D22310211d9b9")
 
-        documentos_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@href, '/sites/Analisedechamados/Documentos Compartilhados/Forms/AllItems.aspx')]")))
-        documentos_chamados.click()
-
-        base_dados_botao = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "span[data-id='heroField'].heroTextWithHeroCommandsWrapped2_ae622aee")))
-        base_dados_botao.click()
+        # Aguarda a página carregar (pode ajustar esse wait conforme o comportamento da página)
+        carregar_pagina = wait.until(EC.presence_of_element_located((By.XPATH, "//span[contains(text(), 'Carregar')]")))
 
         time.sleep(2)
 
@@ -79,7 +76,6 @@ try:
         carregar_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(@class, 'text_24bde817') and contains(text(), 'Carregar')]")))
         carregar_botao.click()
 
-        # Aguarde um instante se necessário
         time.sleep(0.5)
 
         # Clique na opção "Arquivo"
@@ -88,9 +84,9 @@ try:
         time.sleep(2)
 
         # Aguarda o input aparecer e envia o arquivo
-        #input_upload = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='file']")))
-        #input_upload.send_keys(r"C:\Users\RamonCorrea-MDITecno\Downloads\DB_NPS_29_05_2025.csv")
-        #time.sleep(3)
+        input_upload = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='file']")))
+        input_upload.send_keys(r"C:\Users\RamonCorrea-MDITecno\Downloads\DB_HISTÓRICO-CHAMADOS_29_05_2025.csv")
+        time.sleep(3)
     inserindo_documentos()
 
 except Exception as e:
