@@ -22,6 +22,11 @@ navegador.get("https://login.microsoftonline.com/")
 navegador.maximize_window()
 wait = WebDriverWait(navegador, 10)
 
+        
+# Pega a data de ontem e formata
+ontem = datetime.now() - timedelta(days=1)
+data_formatada = ontem.strftime("%d_%m_%Y")
+
 try:
 
     def acessarLogin():
@@ -85,7 +90,7 @@ try:
 
         # Aguarda o input aparecer e envia o arquivo
         input_upload = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='file']")))
-        input_upload.send_keys(r"C:\Users\RamonCorrea-MDITecno\Downloads\DB_HISTÓRICO-CHAMADOS_29_05_2025.csv")
+        input_upload.send_keys(fr"C:\Users\RamonCorrea-MDITecno\Downloads\DB_HISTÓRICO-CHAMADOS_{data_formatada}.csv")
         time.sleep(3)
     inserindo_documentos()
 
