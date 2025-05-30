@@ -66,6 +66,29 @@ try:
     def inserindo_documentos():
         baseDe_dados_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='https://mditicombr.sharepoint.com/sites/Analisedechamados']")))
         baseDe_dados_chamados.click()
+
+        documentos_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@href, '/sites/Analisedechamados/Documentos Compartilhados/Forms/AllItems.aspx')]")))
+        documentos_chamados.click()
+
+        base_dados_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[@role='button' and text()='Base_de_dados_Chamados']")))
+        base_dados_botao.click()
+
+        # Clique no botão "Carregar"
+        carregar_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(@class, 'text_24bde817') and contains(text(), 'Carregar')]")))
+        carregar_botao.click()
+
+        # Aguarde um instante se necessário
+        time.sleep(0.5)
+
+        # Clique na opção "Arquivo"
+        upload_arquivo_botao = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-automationid='uploadFileCommand']")))
+        upload_arquivo_botao.click()
+        time.sleep(2)
+
+        # Aguarda o input aparecer e envia o arquivo
+        input_upload = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='file']")))
+        input_upload.send_keys(r"C:\Users\SeuUsuario\Downloads\DB_NPS_29_05_2025.csv")
+        time.sleep(3)
     inserindo_documentos()
 
 except Exception as e:
