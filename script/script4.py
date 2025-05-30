@@ -40,6 +40,34 @@ try:
         nao_button.click()
     acessarLogin()
 
+    def acessarSharepoint():
+        # Acessando SharePoint no Microsoft 365
+        mcr365_apps = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Inicializador de aplicativos']")))
+        mcr365_apps.click()
+
+        sharepoint_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='SharePoint será aberto em uma nova guia']")))
+    
+        # Guardar a aba atual
+        aba_original = navegador.current_window_handle
+
+        # Clicar no botão que abre nova aba
+        sharepoint_button.click()
+
+        # Aguardar nova aba abrir
+        wait.until(lambda driver: len(driver.window_handles) > 1)
+
+        # Alternar para nova aba
+        for aba in navegador.window_handles:
+            if aba != aba_original:
+                navegador.switch_to.window(aba)
+                break
+    acessarSharepoint()
+
+    def inserindo_documentos():
+        baseDe_dados_chamados = wait.until(EC.element_to_be_clickable((By.XPATH, "//a[@href='https://mditicombr.sharepoint.com/sites/Analisedechamados']")))
+        baseDe_dados_chamados.click()
+    inserindo_documentos()
+
 except Exception as e:
     print("❌ Algo deu errado.")
     navegador.save_screenshot("erro.png")
