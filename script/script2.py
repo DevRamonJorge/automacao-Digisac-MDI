@@ -13,7 +13,6 @@ import pyautogui
 # Função para buscar data do dia anterior entre 07:00 e 22:00
 def datas_dia_anterior(hora1="07:00", hora2="22:00"):
     hoje = datetime.now()
-    # Se hoje for segunda-feira (weekday() == 0), subtrai 3 dias para pegar a sexta
     if hoje.weekday() == 0:
         dia_anterior = hoje - timedelta(days=3)
     else:
@@ -34,130 +33,128 @@ def datas_dia_anterior(hora1="07:00", hora2="22:00"):
 
     return data_hora1.strftime("%d/%m/%Y %H:%M"), data_hora2.strftime("%d/%m/%Y %H:%M")
 
-# Datas usadas no filtro
 primeira_data_07, segunda_data_22 = datas_dia_anterior()
 
-# Carregar variáveis do .env
-env_path = Path(__file__).resolve().parent.parent / '.env'
-load_dotenv(dotenv_path=env_path)
-email = os.getenv("EMAIL")
-senha = os.getenv("SENHA")
+def rodar_script():
+    # Carregar variáveis do .env
+    env_path = Path(__file__).resolve().parent.parent / '.env'
+    load_dotenv(dotenv_path=env_path)
+    email = os.getenv("EMAIL")
+    senha = os.getenv("SENHA")
 
-# Iniciar navegador
-navegador = webdriver.Chrome()
-navegador.get("https://mditi.digisac.co/login")
-navegador.maximize_window()
-wait = WebDriverWait(navegador, 10)
+    navegador = webdriver.Chrome()
+    navegador.get("https://mditi.digisac.co/login")
+    navegador.maximize_window()
+    wait = WebDriverWait(navegador, 10)
 
-try:
+    try:
+        def acessarLogin():
+            email_Element = wait.until(EC.presence_of_element_located((By.ID, 'username')))
+            email_Element.send_keys(email)
 
-    def acessarLogin():
-        # Login
-        email_Element = wait.until(EC.presence_of_element_located((By.ID, 'username')))
-        email_Element.send_keys(email)
+            password_Element = wait.until(EC.presence_of_element_located((By.ID, 'password')))
+            password_Element.send_keys(senha)
 
-        password_Element = wait.until(EC.presence_of_element_located((By.ID, 'password')))
-        password_Element.send_keys(senha)
+            login_Button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-testid='login-button-login']")))
+            login_Button.click()
 
-        login_Button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-testid='login-button-login']")))
-        login_Button.click()
+            wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='Chats']")))
+            print("✅ Login realizado com sucesso!")
+        acessarLogin()
 
-        wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='Chats']")))
-        print("✅ Login realizado com sucesso!")
-    acessarLogin()
+        def acessarEstatisticas_De_Avaliacoes():
+            icone_menu = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
+            icone_menu.click()
 
-    def acessarEstatisticas_De_Avaliacoes():
-        # Acessar menu > Estatísticas e avaliações
-        icone_menu = wait.until(EC.element_to_be_clickable((By.ID, "radix-:r0:")))
-        icone_menu.click()
+            estatisticasE_Avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Estatísticas de avaliações']")))
+            estatisticasE_Avaliacoes.click()
+            print("📂 Acessou 'Estatísticas de avaliações.")
 
-        estatisticasE_Avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[text()='Estatísticas de avaliações']")))
-        estatisticasE_Avaliacoes.click()
-        print("📂 Acessou 'Estatísticas de avaliações.")
+            exibir_Filtro = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@data-testid="stats-Evaluation-button-Show-Filters"]')))
+            exibir_Filtro.click()
 
-        # Exibir filtros
-        exibir_Filtro = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@data-testid="stats-Evaluation-button-Show-Filters"]')))
-        exibir_Filtro.click()
+            def filtros_avaliacoes():
+                def clicarBotao_avaliacoes_status():
+                    ultimoDepartamento_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'react_select__placeholder') and contains(@class, 'css-smo73u-placeholder')]")))
+                    ultimoDepartamento_avaliacoes.click()
+                    time.sleep(1)
+                    pyautogui.write("Suporte")
+                    pyautogui.press("enter")
 
-        # Preencher os filtros
-        def filtros_avaliacoes():
+                def clicarBotao_avaliacoes_conexao():
+                    conexao_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "(//div[contains(@class, 'react_select__placeholder') and text()='Selecione'])[2]")))
+                    conexao_avaliacoes.click()
+                    time.sleep(1)
+                    pyautogui.write("WhatsApp")
+                    pyautogui.press("enter")
 
-            def clicarBotao_avaliacoes_status():
-                ultimoDepartamento_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'react_select__placeholder') and contains(@class, 'css-smo73u-placeholder')]")))
-                ultimoDepartamento_avaliacoes.click()
-                time.sleep(1)
-                pyautogui.write("Suporte")
-                pyautogui.press("enter")
+                def clicarBotao_avaliacoes_periodo():
+                    conexao_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='react-select-periodType-input']/ancestor::div[contains(@class, 'react_select__value-container')]//div[contains(@class, 'react_select__single-value')]")))
+                    conexao_avaliacoes.click()
+                    time.sleep(1)
+                    pyautogui.write("Data de fechamento")
+                    pyautogui.press("enter")
 
-            def clicarBotao_avaliacoes_conexao():
-                conexao_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "(//div[contains(@class, 'react_select__placeholder') and text()='Selecione'])[2]")))
-                conexao_avaliacoes.click()
-                time.sleep(1)
-                pyautogui.write("WhatsApp")
-                pyautogui.press("enter")
+                def clicarBotao_avaliacoes_deAte():
+                    campos_data = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'input[data-testid="DataTime-input"]')))
+                    campos_data[0].click()
+                    campos_data[0].send_keys(Keys.CONTROL, 'a')
+                    campos_data[0].send_keys(Keys.BACKSPACE)
+                    campos_data[0].send_keys(primeira_data_07)
+                    pyautogui.press("enter")
 
-            def clicarBotao_avaliacoes_periodo():
-                conexao_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@id='react-select-periodType-input']/ancestor::div[contains(@class, 'react_select__value-container')]//div[contains(@class, 'react_select__single-value')]")))
-                conexao_avaliacoes.click()
-                time.sleep(1)
-                pyautogui.write("Data de fechamento")
-                pyautogui.press("enter")
+                    campos_data[1].click()
+                    campos_data[1].send_keys(Keys.CONTROL, 'a')
+                    campos_data[1].send_keys(Keys.BACKSPACE)
+                    campos_data[1].send_keys(segunda_data_22)
+                    pyautogui.press("enter")
 
-            def clicarBotao_avaliacoes_deAte():
-                campos_data = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'input[data-testid="DataTime-input"]')))
-            
-                # "De"
-                campos_data[0].click()
-                campos_data[0].send_keys(Keys.CONTROL, 'a')
-                campos_data[0].send_keys(Keys.BACKSPACE)
-                campos_data[0].send_keys(primeira_data_07)
-                pyautogui.press("enter")
+                def clicarBotao_avaliacoes_tipo():
+                    tipo_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, '//div[contains(@class, "react_select__placeholder") and contains(@class, "css-1wa3eu0-placeholder") and text()="Selecione"]')))
+                    tipo_avaliacoes.click()
+                    time.sleep(1)
+                    pyautogui.write("NPS")
+                    pyautogui.press("enter")
 
-                # "Até"
-                campos_data[1].click()
-                campos_data[1].send_keys(Keys.CONTROL, 'a')
-                campos_data[1].send_keys(Keys.BACKSPACE)
-                campos_data[1].send_keys(segunda_data_22)
-                pyautogui.press("enter")
+                clicarBotao_avaliacoes_status()
+                clicarBotao_avaliacoes_conexao()
+                clicarBotao_avaliacoes_periodo()
+                clicarBotao_avaliacoes_deAte()
+                clicarBotao_avaliacoes_tipo()
 
-            def clicarBotao_avaliacoes_tipo():
-                tipo_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, '//div[contains(@class, "react_select__placeholder") and contains(@class, "css-1wa3eu0-placeholder") and text()="Selecione"]')))
-                tipo_avaliacoes.click()
-                time.sleep(1)
-                pyautogui.write("NPS")
-                pyautogui.press("enter")
+            filtros_avaliacoes()
 
-            # Chamando as Funcões
-            clicarBotao_avaliacoes_status()
-            clicarBotao_avaliacoes_conexao()
-            clicarBotao_avaliacoes_periodo()
-            clicarBotao_avaliacoes_deAte()
-            clicarBotao_avaliacoes_tipo()
+            def aplicar_e_baixar_avaliacoes():
+                botao_AplicarFiltros_avaliacoes = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[data-testid="stats-Evaluation-Apply-Filters"]')))
+                botao_AplicarFiltros_avaliacoes.click()
 
-        filtros_avaliacoes()
+                def baixar_avaliacoes():
+                    botao_baixar_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@data-testid="stats-Evaluation-button-Export-CSV"]')))
+                    botao_baixar_avaliacoes.click()
+                baixar_avaliacoes()
 
-        #Clicar no botão de aplicar filtro e baixar
-        def aplicar_e_baixar_avaliacoes():
-            # Aplicar os filtros
-            botao_AplicarFiltros_avaliacoes = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[data-testid="stats-Evaluation-Apply-Filters"]')))
-            botao_AplicarFiltros_avaliacoes.click()
+            aplicar_e_baixar_avaliacoes()
+        acessarEstatisticas_De_Avaliacoes()
 
-            # Baixar, exportar o conteúdo
-            def baixar_avaliacoes():
-                botao_baixar_avaliacoes = wait.until(EC.element_to_be_clickable((By.XPATH, '//button[@data-testid="stats-Evaluation-button-Export-CSV"]')))
-                botao_baixar_avaliacoes.click()
-            baixar_avaliacoes()
+        return True
 
-        aplicar_e_baixar_avaliacoes()
-            
-    acessarEstatisticas_De_Avaliacoes()
+    except Exception as e:
+        print("❌ Algo deu errado.")
+        navegador.save_screenshot("erro.png")
+        print("📸 Screenshot salva como erro.png")
+        print("🔍 Erro:", e)
+        return False
 
-except Exception as e:
-    print("❌ Algo deu errado.")
-    navegador.save_screenshot("erro.png")
-    print("📸 Screenshot salva como erro.png")
-    print("🔍 Erro:", e)
+    finally:
+        time.sleep(5)
+        navegador.quit()
 
-finally:
-    time.sleep(5)
-    navegador.quit()
+# Tentar até 5 vezes
+for tentativa in range(1, 6):
+    print(f"\n🔁 Tentativa {tentativa}/5")
+    sucesso = rodar_script()
+    if sucesso:
+        print("✅ Script finalizado com sucesso.")
+        break
+    elif tentativa == 5:
+        print("❌ Todas as tentativas falharam.")
