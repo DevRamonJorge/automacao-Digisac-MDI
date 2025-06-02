@@ -13,7 +13,11 @@ import pyautogui
 # Função para buscar data do dia anterior entre 07:00 e 22:00
 def datas_dia_anterior(hora1="07:00", hora2="22:00"):
     hoje = datetime.now()
-    dia_anterior = hoje - timedelta(days=1)
+    # Se hoje for segunda-feira (weekday() == 0), subtrai 3 dias para pegar a sexta
+    if hoje.weekday() == 0:
+        dia_anterior = hoje - timedelta(days=3)
+    else:
+        dia_anterior = hoje - timedelta(days=1)
 
     h1, m1 = map(int, hora1.split(":"))
     h2, m2 = map(int, hora2.split(":"))
