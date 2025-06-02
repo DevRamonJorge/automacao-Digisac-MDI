@@ -4,15 +4,17 @@ Este projeto foi desenvolvido na empresa **MDI** com o objetivo de automatizar a
 
 ## 🎯 Funcionalidades
 
-- Login automatizado na plataforma **DigiSac**
-- Acesso às seções:
-  - Histórico de Chamados
-  - Estatísticas de Avaliação
-- Aplicação de filtros conforme as necessidades da equipe
-- Download automático dos relatórios
-- Renomeação dinâmica dos arquivos com base em data e tipo
-- Organização dos arquivos em pastas por categoria
-- (Em desenvolvimento) Upload automático para o **SharePoint**
+- Login automatizado na plataforma **DigiSac** - **
+- Acesso às seções: -
+  - Histórico de Chamados -
+  - Estatísticas de Avaliação -
+- Aplicação de filtros conforme as necessidades da equipe -
+- Download automático dos relatórios -
+- Renomeação dinâmica dos arquivos com base em data e tipo -
+- Organização dos arquivos em pastas por categoria -
+- Upload automático para o **SharePoint** - **
+- Tratamento de Logs para um melhor controle no prompt do terminal
+- Roda automáticamente, graças ao Agendador de Tarefas (Task Scheduler)
 
 ## 🧰 Bibliotecas Utilizadas
 
@@ -52,14 +54,6 @@ pip install selenium pyautogui python-dotenv
 ```bash
 python main.py
 ```
-
-## 📌 Próximos Passos
-
-- Integração com SharePoint via API ou biblioteca externa
-- Implementar notificações (email ou Teams) após a execução
-- Melhorar tratamento de exceções e logs detalhados
-- Agendar execução diária com Task Scheduler (Windows) ou cron (Linux)
-
 ## 👤 Autor
 
 Desenvolvido por mim, Ramon Jorge, colaborador da MDI, com foco em análise de dados, automação de processos e melhoria contínua.
