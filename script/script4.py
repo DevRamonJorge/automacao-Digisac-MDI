@@ -35,7 +35,7 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
         data_formatada = ontem.strftime("%d_%m_%Y")
 
         # Caminho do arquivo a ser inserido
-        caminho_arquivo = fr"C:\Users\RamonCorrea-MDITecno\Downloads\DB_HISTÓRICO-CHAMADOS_{data_formatada}.csv"
+        caminho_arquivo = fr"C:\Users\RamonCorrea-MDITecno\Downloads\DB_HISTORICO-CHAMADOS_{data_formatada}.csv"
 
         def acessarLogin():
             email_Element = wait.until(EC.presence_of_element_located((By.ID, 'i0116')))
@@ -53,26 +53,11 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
 
         acessarLogin()
 
-        def acessarSharepoint():
-            mcr365_apps = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Inicializador de aplicativos']")))
-            mcr365_apps.click()
-
-            sharepoint_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='SharePoint será aberto em uma nova guia']")))
-            aba_original = navegador.current_window_handle
-            sharepoint_button.click()
-
-            wait.until(lambda driver: len(driver.window_handles) > 1)
-            for aba in navegador.window_handles:
-                if aba != aba_original:
-                    navegador.switch_to.window(aba)
-                    break
-
-        acessarSharepoint()
+        # Ir direto para a URL do SharePoint desejada
+        navegador.get("https://mditicombr.sharepoint.com/sites/Analisedechamados/Documentos%20Compartilhados/Forms/AllItems.aspx?id=%2Fsites%2FAnalisedechamados%2FDocumentos%20Compartilhados%2FBase%5Fde%5Fdados%5FChamados&viewid=bf4b0531%2D1d00%2D43a4%2Dbf1c%2D22310211d9b9")
 
         def inserindo_documentos():
-            navegador.get("https://mditicombr.sharepoint.com/sites/Analisedechamados/Documentos%20Compartilhados/Forms/AllItems.aspx?id=%2Fsites%2FAnalisedechamados%2FDocumentos%20Compartilhados%2FBase%5Fde%5Fdados%5FChamados&viewid=bf4b0531%2D1d00%2D43a4%2Dbf1c%2D22310211d9b9")
-
-            carregar_pagina = wait.until(EC.presence_of_element_located((By.XPATH, "//span[contains(text(), 'Carregar')]")))
+            wait.until(EC.presence_of_element_located((By.XPATH, "//span[contains(text(), 'Carregar')]")))
             time.sleep(2)
 
             carregar_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(@class, 'text_24bde817') and contains(text(), 'Carregar')]")))

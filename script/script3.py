@@ -21,7 +21,7 @@ data_para_nome = calcular_data_para_nome()
 
 # Palavras-chave e novos nomes
 palavra_chave1 = 'historico_de_chamados'
-novo_nome1 = f'DB_HISTÓRICO-CHAMADOS_{data_para_nome}.csv'
+novo_nome1 = f'DB_HISTORICO-CHAMADOS_{data_para_nome}.csv'
 
 palavra_chave2 = 'estatisticas-avaliacoes'
 novo_nome2 = f'DB_NPS_{data_para_nome}.csv'
