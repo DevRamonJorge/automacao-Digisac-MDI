@@ -32,7 +32,7 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
 
         # Data formatada para o nome do arquivo
         ontem = datetime.now() - timedelta(days=1)
-        data_formatada = ontem.strftime("%d_%m_%Y")
+        data_formatada = ontem.strftime("%d-%m-%Y")
 
         # Caminho do arquivo a ser inserido
         caminho_arquivo = fr"C:\Users\RamonCorrea-MDITecno\Downloads\DB_HISTORICO-CHAMADOS_{data_formatada}.csv"
