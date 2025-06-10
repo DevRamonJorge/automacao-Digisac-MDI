@@ -52,7 +52,7 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
             nao_button.click()
 
         acessarLogin()
-
+        time.sleep(2)
         # Ir direto para a URL do SharePoint
         navegador.get("https://mditicombr.sharepoint.com/sites/BasededadosNPS/Documentos%20Compartilhados/Forms/AllItems.aspx?id=%2Fsites%2FBasededadosNPS%2FDocumentos%20Compartilhados%2FBase%5Fde%5Fdados%5FNPS&viewid=bf4b0531%2D1d00%2D43a4%2Dbf1c%2D22310211d9b9")
 
