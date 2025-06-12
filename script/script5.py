@@ -60,11 +60,11 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
             wait.until(EC.presence_of_element_located((By.XPATH, "//span[contains(text(), 'Carregar')]")))
             time.sleep(2)
 
-            carregar_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(@class, 'text_24bde817') and contains(text(), 'Carregar')]")))
+            carregar_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(@class, 'container_cb8e3e55') and .//span[text()='Carregar']]")))
             carregar_botao.click()
             time.sleep(0.5)
 
-            upload_arquivo_botao = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-automationid='uploadFileCommand']")))
+            upload_arquivo_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ms-ContextualMenu-linkContent')]//span[text()='Arquivos']")))
             upload_arquivo_botao.click()
             time.sleep(2)
 
