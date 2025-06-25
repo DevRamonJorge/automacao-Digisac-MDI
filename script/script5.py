@@ -30,9 +30,17 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
         navegador.maximize_window()
         wait = WebDriverWait(navegador, 10)
 
+        # Verifica se hoje é segunda-feira (0 = segunda, 6 = domingo)
+        hoje = datetime.now()
+        if hoje.weekday() == 0:
+            # Se for segunda, usa a data da sexta-feira passada
+            data_ref = hoje - timedelta(days=3)
+        else:
+            # Caso contrário, usa a data de ontem
+            data_ref = hoje - timedelta(days=1)
+
         # Data formatada para o nome do arquivo
-        ontem = datetime.now() - timedelta(days=1)
-        data_formatada = ontem.strftime("%d-%m-%Y")
+        data_formatada = data_ref.strftime("%d-%m-%Y")
 
         # Caminho do arquivo a ser inserido
         caminho_arquivo = fr"C:\Users\RamonCorrea-MDITecno\Downloads\DB_NPS_{data_formatada}.csv"
