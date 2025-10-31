@@ -1,8 +1,10 @@
 import subprocess
+import sys
 
-# Caminhos relativos à raiz do projeto
-subprocess.run(["python", "script/script2.py"])
-subprocess.run(["python", "script/script.py"])
-subprocess.run(["python", "script/script3.py"])
-subprocess.run(["python", "script/script4.py"])
-subprocess.run(["python", "script/script5.py"])
+python_path = sys.executable
+
+subprocess.run([python_path, "script/script2.py"])
+subprocess.run([python_path, "script/script.py"])
+subprocess.run([python_path, "script/script3.py"])
+subprocess.run([python_path, "script/script4.py"])
+subprocess.run([python_path, "script/script5.py"])

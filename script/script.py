@@ -64,7 +64,7 @@ try:
         password_Element = wait.until(EC.presence_of_element_located((By.ID, 'password')))
         password_Element.send_keys(senha)
 
-        login_Button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[data-testid='login-button-login']")))
+        login_Button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@data-testid='login-button-submit']")))
         login_Button.click()
 
         wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='Chats']")))

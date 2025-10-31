@@ -43,7 +43,7 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
         data_formatada = data_ref.strftime("%d-%m-%Y")
 
         # Caminho do arquivo a ser inserido
-        caminho_arquivo = fr"C:\Users\RamonCorrea-MDITecno\Downloads\DB_HISTORICO-CHAMADOS_{data_formatada}.csv"
+        caminho_arquivo = fr"C:\Users\User\Downloads\DB_HISTORICO-CHAMADOS_{data_formatada}.csv"
 
         def acessarLogin():
             email_Element = wait.until(EC.presence_of_element_located((By.ID, 'i0116')))
@@ -65,10 +65,10 @@ for tentativa in range(1, MAX_TENTATIVAS + 1):
         navegador.get("https://mditicombr.sharepoint.com/sites/Analisedechamados/Documentos%20Compartilhados/Forms/AllItems.aspx?id=%2Fsites%2FAnalisedechamados%2FDocumentos%20Compartilhados%2FBase%5Fde%5Fdados%5FChamados&viewid=bf4b0531%2D1d00%2D43a4%2Dbf1c%2D22310211d9b9")
         
         def inserindo_documentos():
-            wait.until(EC.presence_of_element_located((By.XPATH, "//span[contains(text(), 'Carregar')]")))
+            wait.until(EC.presence_of_element_located((By.XPATH, "//button[.//span[text()='Carregar']]")))
             time.sleep(2)
 
-            carregar_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(@class, 'container_cb8e3e55') and .//span[text()='Carregar']]")))
+            carregar_botao = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='Carregar']]")))
             carregar_botao.click()
             time.sleep(0.5)
 
