@@ -2,7 +2,7 @@ import csv
 import os
 
 # Caminho do CSV original
-caminho = r"C:\Users\User\Downloads\DB_NPS_28-10-2025.csv"
+caminho = r"C:\Users\User\Downloads\DB_NPS_29-10-2025.csv"
 backup = caminho + ".bak"
 
 # Criar backup
@@ -22,12 +22,14 @@ with open(backup, 'r', encoding='latin1', newline='') as entrada, \
     # Identifica os índices das colunas
     idx_protocolo = cabecalho.index("NÃºmero do protocolo")
     idx_nota = cabecalho.index("Nota")
+    idx_classificacao = cabecalho.index("ClassificaÃ§Ã£o")  # nova linha
 
     protocolo_alvo = "2025102948644"
 
     for linha in leitor:
         if linha[idx_protocolo] == protocolo_alvo and linha[idx_nota] == "1":
             linha[idx_nota] = "10"
+            linha[idx_classificacao] = "Promotor"  # altera classificação também
         escritor.writerow(linha)
 
 print("✅ Arquivo corrigido e salvo. Backup criado em:", backup)
